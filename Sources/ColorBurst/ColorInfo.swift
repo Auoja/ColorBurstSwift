@@ -35,3 +35,16 @@ public extension ColorInfo {
                   secondaryColor: .secondary)
     }
 }
+
+// MARK: Environment
+
+public extension EnvironmentValues {
+    @Entry var colorInfo: ColorInfo = .standard
+}
+
+public extension View {
+
+    func colorInfo(_ colorInfo: ColorInfo) -> some View {
+        self.environment(\.colorInfo, colorInfo)
+    }
+}

@@ -1,0 +1,15 @@
+{
+  "originHash" : "790830d498ef5f4f088c80d597fffab9b40efff275df57b9a6e040aee90eafb2",
+  "pins" : [
+    {
+      "identity" : "nexus",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Auoja/Nexus.git",
+      "state" : {
+        "revision" : "53f00a38bba70f14aba1e305e2ad27b680a4cf9c",
+        "version" : "1.0.0"
+      }
+    }
+  ],
+  "version" : 3
+}

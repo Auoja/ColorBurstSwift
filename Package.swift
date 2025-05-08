@@ -10,5 +10,5 @@ let package = Package(name: "ColorBurst",
                         .library(name: "ColorBurst", targets: ["ColorBurst"]),
                       ],
                       targets: [
-                        .target(name: "ColorBurst", path: "Sources"),
+                        .target(name: "ColorBurst"),
                       ])

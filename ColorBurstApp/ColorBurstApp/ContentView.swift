@@ -12,22 +12,25 @@ struct ContentView: View {
 
     @State private var image: UIImage?
     @State private var isLoading: Bool = false
-    @State private var colorInfo = ColorInfo.standard
+//    @State private var colorInfo = ColorInfo.standard
+    @State private var backgroundColor: Color = .gray
+    @State private var colorInfo = ForegroundColorInfo.standard
 
     var body: some View {
         ScrollView {
             contentView
+
         }
-        .background(Gradient(colors: [colorInfo.backgroundColor, colorInfo.secondaryBackgroundColor]))
+        .background(backgroundColor)
+//        .background(Gradient(colors: [colorInfo.backgroundColor, colorInfo.secondaryBackgroundColor]))
         .task {
             await refreshImage()
         }
         .onChange(of: image) {
-            if let image {
-                colorInfo = ColorBurst.extractColorInfo(from: image)
-            } else {
-                colorInfo = .standard
-            }
+            refreshColorInfo()
+        }
+        .onChange(of: backgroundColor) {
+            refreshColorInfo()
         }
         .tint(colorInfo.secondaryColor)
     }
@@ -56,6 +59,11 @@ struct ContentView: View {
             }
             .buttonStyle(.bordered)
             .disabled(isLoading)
+
+            ColorPicker(selection: $backgroundColor) {
+                Text("Change background color")
+                    .foregroundStyle(colorInfo.secondaryColor)
+            }
         }
         .padding()
     }
@@ -68,6 +76,15 @@ struct ContentView: View {
             image = try await imageLoader.loadImage()
         } catch {
             image = nil
+        }
+    }
+
+    private func refreshColorInfo() {
+        if let image {
+            colorInfo = ColorBurst.extractColorInfo(from: image,
+                                                    backgroundColor: backgroundColor)
+        } else {
+            colorInfo = .standard
         }
     }
 }

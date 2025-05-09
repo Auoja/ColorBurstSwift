@@ -4,7 +4,7 @@ import PackageDescription
 
 let package = Package(name: "ColorBurst",
                       platforms: [
-                        .iOS(.v14)
+                        .iOS(.v17)
                       ],
                       products: [
                         .library(name: "ColorBurst", targets: ["ColorBurst"]),

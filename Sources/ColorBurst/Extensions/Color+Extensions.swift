@@ -7,6 +7,29 @@ import SwiftUI
 
 package extension Color {
 
+    init(light: Color, dark: Color) {
+        self.init(light: UIColor(light), dark: UIColor(dark))
+    }
+
+    init(light: UIColor, dark: UIColor) {
+        self.init(uiColor: UIColor { traits in
+            switch traits.userInterfaceStyle {
+            case .light, .unspecified:
+                return light
+
+            case .dark:
+                return dark
+
+            @unknown default:
+                assertionFailure("Unknown userInterfaceStyle: \(traits.userInterfaceStyle)")
+                return light
+            }
+        })
+    }
+}
+
+package extension Color {
+
     func highestContrastColor(in colors: [Color] = [.black, .white]) -> Color? {
         colors.max { $0.contrastRatio(with: self) < $1.contrastRatio(with: self) }
     }
